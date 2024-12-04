@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhes da Categoria</title>
+  </head>
+  <body>
+    <h1>Detalhes da Categoria</h1>
+    <p>
+      <strong>Categoria:</strong> {{ object.categoria }}
+    </p>
+    <p>
+      <strong>Data de Cadastro:</strong> {{ object.data_cadastro }}
+    </p>
+    <a href="{% url 'categoria-list' %}">Voltar para a lista</a>
+  </body>
+</html>

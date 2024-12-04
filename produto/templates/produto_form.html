@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% if object %}
+        Editar produto
+      {% else %}
+        Novo produto
+      {% endif %}
+    </title>
+  </head>
+  <body>
+    <h1>
+      {% if object %}
+        Editar produto
+      {% else %}
+        Novo produto
+      {% endif %}
+    </h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Salvar</button>
+    </form>
+    <a href="{% url 'produto-list' %}">Cancelar</a>
+  </body>
+</html>
