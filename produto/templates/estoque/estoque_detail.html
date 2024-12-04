@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Estoque</title>
+</head>
+<body>
+    <h1>Detalhes do Estoque</h1>
+    <p><strong>Produto:</strong> {{ object.id_produto.nome }}</p>
+    <p><strong>Quantidade:</strong> {{ object.qtde }}</p>
+    <p><strong>Data de Cadastro:</strong> {{ object.data_cadastro }}</p>
+    <a href="{% url 'estoque-list' %}">Voltar</a>
+</body>
+</html>

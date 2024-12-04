@@ -42,7 +42,11 @@ INSTALLED_APPS = [
     'formato',
     'produto',
     'movimentacoes',
+    'usuarios',
 ]
+
+LOGIN_URL = '/usuarios/login/'  # ou qualquer URL que seja a página de login no seu sistema
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'systemestoque.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],  # Adicione o diretório principal de templates, se necessário
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,6 +75,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = 'systemestoque.wsgi.application'
 
@@ -108,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'PT-BR'
 
 TIME_ZONE = 'UTC'
 

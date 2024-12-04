@@ -3,9 +3,12 @@ from django.urls import path
 from empresa.views import EmpresaListView, EmpresaCreateView, EmpresaUpdateView, EmpresaDeleteView, EmpresaDetailView
 from categoria.views import CategoriaListView, CategoriaCreateView, CategoriaUpdateView, CategoriaDeleteView, CategoriaDetailView
 from formato.views import FormatoListView, FormatoCreateView, FormatoUpdateView, FormatoDeleteView, FormatoDetailView
-from produto.views import ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView, ProdutoDetailView
-from movimentacoes.views import movimentacoes_view
+from produto.views import ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView, ProdutoDetailView, EstoqueListView, EstoqueCreateView, EstoqueUpdateView, EstoqueDeleteView, EstoqueDetailView
+from movimentacoes.views import  MovimentacoesListView, MovimentacoesCreateView, MovimentacoesUpdateView, MovimentacoesDeleteView, MovimentacoesDetailView
+from usuarios.views import register_view, login_view
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+    
 
 def home_view(request):
     return HttpResponse("""
@@ -17,13 +20,13 @@ def home_view(request):
             <li><a href="/produto/">Produto</a></li>
             <li><a href="/estoque/">Estoque</a></li>
             <li><a href="/movimentacoes/">Movimentações</a></li>
+            <li><a href="/usuarios/">Usuarios</a></li>
         </ul>
     """)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
-    path('movimentacoes/', movimentacoes_view, name='movimentacoes'),
     
     # Rotas para Empresa
     path('empresa/', EmpresaListView.as_view(), name='empresa-list'),
@@ -52,4 +55,23 @@ urlpatterns = [
     path('produto/<int:pk>/editar/', ProdutoUpdateView.as_view(), name='produto-update'),
     path('produto/<int:pk>/deletar/', ProdutoDeleteView.as_view(), name='produto-delete'),
     path('produto/<int:pk>/', ProdutoDetailView.as_view(), name='produto-detail'),
+    
+    #Rotas para movimentações
+    path('movimentacoes/', MovimentacoesListView.as_view(), name='movimentacoes-list'),
+    path('movimentacoes/novo/', MovimentacoesCreateView.as_view(), name='movimentacoes-create'),
+    path('movimentacoes/<int:pk>/editar/', MovimentacoesUpdateView.as_view(), name='movimentacoes-update'),
+    path('movimentacoes/<int:pk>/deletar/', MovimentacoesDeleteView.as_view(), name='movimentacoes-delete'),
+    path('movimentacoes/<int:pk>/', MovimentacoesDetailView.as_view(), name='movimentacoes-detail'),
+    
+    # Rotas para Estoque
+    path('estoque/', EstoqueListView.as_view(), name='estoque-list'),
+    path('estoque/novo/', EstoqueCreateView.as_view(), name='estoque-create'),
+    path('estoque/<int:pk>/editar/', EstoqueUpdateView.as_view(), name='estoque-update'),
+    path('estoque/<int:pk>/deletar/', EstoqueDeleteView.as_view(), name='estoque-delete'),
+    path('estoque/<int:pk>/', EstoqueDetailView.as_view(), name='estoque-detail'),
+    
+    #Rotas para Usuarios
+    path('usuarios/login/', login_view, name='usuarios-login'),
+    path('usuarios/register/', register_view, name='usuarios-register'),
+
 ]

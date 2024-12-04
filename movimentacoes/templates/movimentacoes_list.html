@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Movimentações</title>
+</head>
+<body>
+    <h1>Lista de Movimentações</h1>
+    <a href="{% url 'movimentacoes-create' %}">Nova Movimentação</a>
+    <ul>
+        {% for movimentacao in movimentacoes %}
+        <li>
+            <a href="{% url 'movimentacoes-detail' movimentacao.pk %}">
+                {{ movimentacao.qtde }} unidades em {{ movimentacao.data }}
+            </a>
+            - <a href="{% url 'movimentacoes-update' movimentacao.pk %}">Editar</a>
+            - <a href="{% url 'movimentacoes-delete' movimentacao.pk %}">Deletar</a>
+        </li>
+        {% empty %}
+        <li>Nenhuma movimentação registrada.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
