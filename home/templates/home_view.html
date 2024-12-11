@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+
+  {% include 'components/header/header.html' %}
+
+<body>
+
+  <div class="container my-5">
+        <center>
+          <div>
+            <h1 class="d-none d-md-block">Bem-vindo, Arthur dos Reis Gonçalves!</h1> <!-- Mostrado em telas médias ou maiores -->
+            <h4 class="d-block d-md-none">Bem-vindo, Arthur dos Reis Gonçalves!</h4> <!-- Mostrado em telas menores -->
+          </div>
+        </center>
+        <br>
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100">
+              <img src="{% static "images/cadastrar.jpg" %}" class="card-img-top" alt="Imagem do Card">
+              <div class="card-body">
+                <h5 class="card-title">Cadastrar Movimentação</h5>
+                <p class="card-text">Cadastre suas Movimentações do seu estoque aqui.</p>
+                <a href="#" class="btn btn-primary">Saiba Mais</a>
+              </div>
+            </div>
+          </div>
+    
+          <!-- Card 2 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100">
+              <img src="{% static "images/listar.jpg" %}" class="card-img-top" alt="Imagem do Card">
+              <div class="card-body">
+                <h5 class="card-title">Listagem Movimentações</h5>
+                <p class="card-text">Listagem de todas as movimentações do estoque.</p>
+                <a href="#" class="btn btn-primary">Saiba Mais</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100">
+              <img src="{% static "images/estoque.jpg" %}" class="card-img-top" alt="Imagem do Card">
+              <div class="card-body">
+                <h5 class="card-title">Estoque de Produtos</h5>
+                <p class="card-text">Estoque de todos os produtos cadastrados.</p>
+                <a href="#" class="btn btn-primary">Saiba Mais</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card 4 -->
+          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card h-100">
+              <img src="{% static "images/pd_estoque.jpg" %}" class="card-img-top" alt="Imagem do Card">
+              <div class="card-body">
+                <h5 class="card-title">Produtos em Baixa</h5>
+                <p class="card-text">Listagem de todos os produtos que se encontram com o estoque baixo.</p>
+                <a href="#" class="btn btn-primary">Saiba Mais</a>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+</body>
+
+{% include 'components/footer/footer.html' %}
+
+</html>

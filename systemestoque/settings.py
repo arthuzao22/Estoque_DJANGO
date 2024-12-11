@@ -43,9 +43,12 @@ INSTALLED_APPS = [
     'produto',
     'movimentacoes',
     'usuarios',
+    'home',
 ]
 
 LOGIN_URL = '/usuarios/login/'  # ou qualquer URL que seja a página de login no seu sistema
+
+STATIC_URL = '/static/'  # URL onde os arquivos estáticos são servidos
 
 
 MIDDLEWARE = [

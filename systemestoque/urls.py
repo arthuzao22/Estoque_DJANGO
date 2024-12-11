@@ -4,26 +4,12 @@ from empresa.views import EmpresaListView, EmpresaCreateView, EmpresaUpdateView,
 from categoria.views import CategoriaListView, CategoriaCreateView, CategoriaUpdateView, CategoriaDeleteView, CategoriaDetailView
 from formato.views import FormatoListView, FormatoCreateView, FormatoUpdateView, FormatoDeleteView, FormatoDetailView
 from produto.views import ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView, ProdutoDetailView, EstoqueListView, EstoqueCreateView, EstoqueUpdateView, EstoqueDeleteView, EstoqueDetailView
-from movimentacoes.views import  MovimentacoesListView, MovimentacoesCreateView, MovimentacoesUpdateView, MovimentacoesDeleteView, MovimentacoesDetailView
+from movimentacoes.views import  MovimentacoesListView, MovimentacoesCreateView, MovimentacoesDeleteView
 from usuarios.views import register_view, login_view
+from home.views import home_view
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
     
-
-def home_view(request):
-    return HttpResponse("""
-        <h1>Bem-vindo ao Sistema de Estoque</h1>
-        <ul>
-            <li><a href="/empresa/">Empresa</a></li>
-            <li><a href="/categoria/">Categoria</a></li>
-            <li><a href="/formato/">Formato</a></li>
-            <li><a href="/produto/">Produto</a></li>
-            <li><a href="/estoque/">Estoque</a></li>
-            <li><a href="/movimentacoes/">Movimentações</a></li>
-            <li><a href="/usuarios/">Usuarios</a></li>
-        </ul>
-    """)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home_view, name='home'),
@@ -59,9 +45,7 @@ urlpatterns = [
     #Rotas para movimentações
     path('movimentacoes/', MovimentacoesListView.as_view(), name='movimentacoes-list'),
     path('movimentacoes/novo/', MovimentacoesCreateView.as_view(), name='movimentacoes-create'),
-    path('movimentacoes/<int:pk>/editar/', MovimentacoesUpdateView.as_view(), name='movimentacoes-update'),
     path('movimentacoes/<int:pk>/deletar/', MovimentacoesDeleteView.as_view(), name='movimentacoes-delete'),
-    path('movimentacoes/<int:pk>/', MovimentacoesDetailView.as_view(), name='movimentacoes-detail'),
     
     # Rotas para Estoque
     path('estoque/', EstoqueListView.as_view(), name='estoque-list'),

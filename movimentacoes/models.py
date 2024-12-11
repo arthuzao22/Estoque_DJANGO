@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Movimentacoes(models.Model):
     tipo_movimentacao = models.CharField(max_length=255)
     qtde = models.IntegerField()
+    data_chegada_saida = models.DateField(blank=True)  # Exemplo correto
     data = models.DateField(auto_now_add=True)
     id_empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Relacionamento com o usuário
