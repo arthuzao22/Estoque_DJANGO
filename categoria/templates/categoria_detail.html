@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Detalhes da Categoria</title>
-  </head>
+  {% include 'components/header/header.html' %}
+
   <body>
     <h1>Detalhes da Categoria</h1>
     <p>
@@ -15,4 +12,5 @@
     </p>
     <a href="{% url 'categoria-list' %}">Voltar para a lista</a>
   </body>
+  {% include 'components/footer/footer.html' %}
 </html>

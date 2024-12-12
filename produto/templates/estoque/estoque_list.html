@@ -1,25 +1,38 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estoque</title>
-</head>
-<body>
-    <h1>Estoque</h1>
-    <a href="{% url 'estoque-create' %}">Adicionar Item ao Estoque</a>
-    <ul>
-        {% for estoque in estoques %}
-        <li>
-            <a href="{% url 'estoque-detail' estoque.pk %}">
-                {{ estoque.id_produto.nome }} - {{ estoque.qtde }} - {{ estoque.id_produto.id_formato.formato }} - {{ estoque.calculo }} Unidades
-            </a>
-            - <a href="{% url 'estoque-update' estoque.pk %}">Editar</a>
-            - <a href="{% url 'estoque-delete' estoque.pk %}">Deletar</a>
-        </li>
-        {% empty %}
-        <li>Nenhum item no estoque.</li>
-        {% endfor %}
-    </ul>
-</body>
+  {% include 'components/header/header.html' %}
+
+  <body>
+    <div>
+        <h1 class="d-none d-md-block text-center">Lista de Estoque</h1> <!-- Mostrado em telas médias ou maiores -->
+        <h4 class="d-block d-md-none text-center">Lista de Estoque</h4> <!-- Mostrado em telas menores -->
+      </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Produto</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Unidades</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for estoque in estoques %}
+            <tr>
+              <td>{{ estoque.id_produto.nome }}</td>
+              <td>{{ estoque.qtde }} {{ estoque.id_produto.id_formato.formato }}</td>
+              <td>{{ estoque.calculo }}</td>
+
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="5" class="text-center">Nenhum item no estoque.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+
+  {% include 'components/footer/footer.html' %}
 </html>

@@ -4,13 +4,15 @@ from produto.models import Produto
 from django.contrib.auth.models import User
 
 class Movimentacoes(models.Model):
-    tipo_movimentacao = models.CharField(max_length=255)
+    TIPO_MOVIMENTACAO_CHOICES = [
+        ('Entrada', 'Entrada'),
+        ('Saída', 'Saída'),
+    ]
+    tipo_movimentacao = models.CharField(max_length=10, choices=TIPO_MOVIMENTACAO_CHOICES)
     qtde = models.IntegerField()
-    data_chegada_saida = models.DateField(blank=True)  # Exemplo correto
+    data_chegada_saida = models.DateField()  # Certifique-se de que este campo está presente
     data = models.DateField(auto_now_add=True)
     id_empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
-    id_usuario = models.ForeignKey(User, on_delete=models.CASCADE)  # Relacionamento com o usuário
+    id_usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     id_produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"Movimento de {self.qtde} unidades"

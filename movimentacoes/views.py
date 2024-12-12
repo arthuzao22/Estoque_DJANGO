@@ -7,6 +7,8 @@ from .models import Movimentacoes
 from django.shortcuts import get_object_or_404
 from produto.models import Estoque
 from django.http import HttpResponse
+from .forms import MovimentacoesForm
+
 
 # Listar movimentações
 class MovimentacoesListView(LoginRequiredMixin, ListView):
@@ -15,36 +17,45 @@ class MovimentacoesListView(LoginRequiredMixin, ListView):
     context_object_name = 'movimentacoes'
 
 # Criar movimentação
+# Views
 class MovimentacoesCreateView(LoginRequiredMixin, CreateView):
     model = Movimentacoes
+    form_class = MovimentacoesForm
     template_name = 'movimentacoes_form.html'
-    fields = ['qtde', 'tipo_movimentacao', 'id_empresa', 'id_produto']
     success_url = reverse_lazy('movimentacoes-list')
 
     def form_valid(self, form):
-        # Atribui o id_usuario como o usuário atualmente logado
         form.instance.id_usuario = self.request.user
+        try:
+            estoque = Estoque.objects.get(id_produto=form.cleaned_data['id_produto'])
+        except Estoque.DoesNotExist:
+            form.add_error('id_produto', 'Produto não encontrado no estoque.')
+            return self.form_invalid(form)
 
-        # Obter o estoque relacionado ao id_produto
-        estoque = get_object_or_404(Estoque, id_produto=form.cleaned_data['id_produto'])
-
-        # Atualizar a qtde no estoque com base no tipo de movimentação
         if form.cleaned_data['tipo_movimentacao'] == 'Entrada':
             estoque.qtde += form.cleaned_data['qtde']
         elif form.cleaned_data['tipo_movimentacao'] == 'Saída':
             if estoque.qtde >= form.cleaned_data['qtde']:
                 estoque.qtde -= form.cleaned_data['qtde']
             else:
-                return HttpResponse("qtde insuficiente no estoque.")
+                form.add_error('qtde', 'Quantidade insuficiente no estoque.')
+                return self.form_invalid(form)
 
-        # Salvar o estoque atualizado
         estoque.save()
-
-        # Chama o método original para salvar o formulário
         return super().form_valid(form)
 
-# Deletar movimentação
 class MovimentacoesDeleteView(LoginRequiredMixin, DeleteView):
     model = Movimentacoes
     template_name = 'movimentacoes_confirm_delete.html'
     success_url = reverse_lazy('movimentacoes-list')
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        estoque = Estoque.objects.get(id_produto=obj.id_produto)
+        if obj.tipo_movimentacao == 'Entrada':
+            estoque.qtde -= obj.qtde
+        elif obj.tipo_movimentacao == 'Saída':
+            estoque.qtde += obj.qtde
+        estoque.save()
+        return super().delete(request, *args, **kwargs)
+

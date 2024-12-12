@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edição/create</title>
-  </head>
+  {% include 'components/header/header.html' %}
+
   <body>
     <h1>
       {% if object %}
@@ -20,4 +17,5 @@
     </form>
     <a href="{% url 'categoria-list' %}">Cancelar</a>
   </body>
+  {% include 'components/footer/footer.html' %}
 </html>

@@ -3,7 +3,7 @@ from django.urls import path
 from empresa.views import EmpresaListView, EmpresaCreateView, EmpresaUpdateView, EmpresaDeleteView, EmpresaDetailView
 from categoria.views import CategoriaListView, CategoriaCreateView, CategoriaUpdateView, CategoriaDeleteView, CategoriaDetailView
 from formato.views import FormatoListView, FormatoCreateView, FormatoUpdateView, FormatoDeleteView, FormatoDetailView
-from produto.views import ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView, ProdutoDetailView, EstoqueListView, EstoqueCreateView, EstoqueUpdateView, EstoqueDeleteView, EstoqueDetailView
+from produto.views import ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView, EstoqueListView
 from movimentacoes.views import  MovimentacoesListView, MovimentacoesCreateView, MovimentacoesDeleteView
 from usuarios.views import register_view, login_view
 from home.views import home_view
@@ -40,7 +40,6 @@ urlpatterns = [
     path('produto/novo/', ProdutoCreateView.as_view(), name='produto-create'),
     path('produto/<int:pk>/editar/', ProdutoUpdateView.as_view(), name='produto-update'),
     path('produto/<int:pk>/deletar/', ProdutoDeleteView.as_view(), name='produto-delete'),
-    path('produto/<int:pk>/', ProdutoDetailView.as_view(), name='produto-detail'),
     
     #Rotas para movimentações
     path('movimentacoes/', MovimentacoesListView.as_view(), name='movimentacoes-list'),
@@ -49,10 +48,6 @@ urlpatterns = [
     
     # Rotas para Estoque
     path('estoque/', EstoqueListView.as_view(), name='estoque-list'),
-    path('estoque/novo/', EstoqueCreateView.as_view(), name='estoque-create'),
-    path('estoque/<int:pk>/editar/', EstoqueUpdateView.as_view(), name='estoque-update'),
-    path('estoque/<int:pk>/deletar/', EstoqueDeleteView.as_view(), name='estoque-delete'),
-    path('estoque/<int:pk>/', EstoqueDetailView.as_view(), name='estoque-detail'),
     
     #Rotas para Usuarios
     path('usuarios/login/', login_view, name='usuarios-login'),

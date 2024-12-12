@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Categorias</title>
-  </head>
+  {% include 'components/header/header.html' %}
+
   <body>
     <h1>Lista de Categorias</h1>
     <a href="{% url 'categoria-create' %}">Nova Categoria</a>
@@ -18,4 +15,5 @@
       {% endfor %}
     </ul>
   </body>
+  {% include 'components/footer/footer.html' %}
 </html>
