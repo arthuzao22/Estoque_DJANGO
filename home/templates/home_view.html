@@ -1,72 +1,144 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-br">
-
   {% include 'components/header/header.html' %}
 
-<body>
+  <body>
+    <center>
+      <div>
+        <h1 class="d-none d-md-block">Bem-vindo, Arthur dos Reis Gonçalves!</h1>
+        <h4 class="d-block d-md-none">Bem-vindo, Arthur dos Reis Gonçalves!</h4>
+      </div>
+    </center>
 
-  <div class="container my-5">
-        <center>
-          <div>
-            <h1 class="d-none d-md-block">Bem-vindo, Arthur dos Reis Gonçalves!</h1> <!-- Mostrado em telas médias ou maiores -->
-            <h4 class="d-block d-md-none">Bem-vindo, Arthur dos Reis Gonçalves!</h4> <!-- Mostrado em telas menores -->
-          </div>
-        </center>
-        <br>
-        <div class="row g-4">
-          <!-- Card 1 -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100">
-              <img src="{% static "images/cadastrar.jpg" %}" class="card-img-top" alt="Imagem do Card">
-              <div class="card-body">
-                <h5 class="card-title">Cadastrar Movimentação</h5>
-                <p class="card-text">Cadastre suas Movimentações do seu estoque aqui.</p>
-                <a href="#" class="btn btn-primary">Saiba Mais</a>
-              </div>
-            </div>
-          </div>
-    
-          <!-- Card 2 -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100">
-              <img src="{% static "images/listar.jpg" %}" class="card-img-top" alt="Imagem do Card">
-              <div class="card-body">
-                <h5 class="card-title">Listagem Movimentações</h5>
-                <p class="card-text">Listagem de todas as movimentações do estoque.</p>
-                <a href="#" class="btn btn-primary">Saiba Mais</a>
-              </div>
-            </div>
-          </div>
+    <br />
 
-          <!-- Card 3 -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100">
-              <img src="{% static "images/estoque.jpg" %}" class="card-img-top" alt="Imagem do Card">
-              <div class="card-body">
-                <h5 class="card-title">Estoque de Produtos</h5>
-                <p class="card-text">Estoque de todos os produtos cadastrados.</p>
-                <a href="#" class="btn btn-primary">Saiba Mais</a>
-              </div>
-            </div>
+    <!-- Cards -->
+    <div class="row g-4">
+      <div class="col-12 col-sm-6 col-md-3">
+      <div class="card text-white text-center shadow" style="background-color: #24969d;">
+          <div class="card-body">
+            <h5 class="card-title">4 Produtos Cadastrados</h5>
+            <p class="card-text">19 Itens no Estoque</p>
+            <a href="#" class="btn btn-light">Ver Relação de Produtos</a>
           </div>
-          
-          <!-- Card 4 -->
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="card h-100">
-              <img src="{% static "images/pd_estoque.jpg" %}" class="card-img-top" alt="Imagem do Card">
-              <div class="card-body">
-                <h5 class="card-title">Produtos em Baixa</h5>
-                <p class="card-text">Listagem de todos os produtos que se encontram com o estoque baixo.</p>
-                <a href="#" class="btn btn-primary">Saiba Mais</a>
-              </div>
-            </div>
-          </div>
-          
         </div>
       </div>
-</body>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="card bg-danger text-white text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">2 Produtos com Estoque Zerado</h5>
+            <a href="#" class="btn btn-light">Ver Produtos Estoque Zerado</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="card text-white text-center shadow"  style="background-color: #F8B739;">
+          <div class="card-body">
+            <h5 class="card-title">3 Produtos com Estoque Mínimo</h5>
+            <a href="#" class="btn btn-light">Ver Produtos Estoque Mínimo</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="card bg-success text-white text-center shadow">
+          <div class="card-body">
+            <h5 class="card-title">Investimento: R$ 517,00</h5>
+            <p class="card-text">Retorno Previsto: R$ 1.412,35</p>
+            <p class="card-text">Margem de Lucro: 63,39%</p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-{% include 'components/footer/footer.html' %}
+    <br />
 
+    <!-- Gráficos -->
+    <div class="row g-4">
+      <div class="col-12">
+        <div class="card shadow">
+          <div class="card-header text-center text-white" style="background-color: #24969d;">Entradas e Saídas Últimos 10 Dias</div>
+          <div class="card-body">
+            <canvas id="chartEntradasSaidas" style="max-height: 400px;"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card shadow">
+          <div class="card-header text-center bg-secondary text-white">Atividades no Sistema Últimos 10 Dias</div>
+          <div class="card-body">
+            <canvas id="chartAtividades" style="max-height: 400px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Gráfico de Entradas e Saídas
+      const ctxEntradasSaidas = document.getElementById('chartEntradasSaidas').getContext('2d')
+      new Chart(ctxEntradasSaidas, {
+        type: 'bar',
+        data: {
+          labels: ['14/08', '15/08', '16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08', '23/08'],
+          datasets: [
+            {
+              label: 'Entradas',
+              data: [20, 40, 30, 50, 70, 60, 90, 80, 100, 120],
+              backgroundColor: 'rgba(54, 162, 235, 0.7)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Saídas',
+              data: [10, 30, 20, 40, 50, 45, 70, 65, 85, 95],
+              backgroundColor: 'rgba(75, 192, 192, 0.7)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          }
+        }
+      })
+      
+      // Gráfico de Atividades no Sistema
+      const ctxAtividades = document.getElementById('chartAtividades').getContext('2d')
+      new Chart(ctxAtividades, {
+        type: 'line',
+        data: {
+          labels: ['14/08', '15/08', '16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08', '23/08'],
+          datasets: [
+            {
+              label: 'Atividades',
+              data: [20, 40, 30, 60, 90, 70, 100, 80, 140, 120],
+              borderColor: 'rgba(255, 159, 64, 1)',
+              backgroundColor: 'rgba(255, 159, 64, 0.3)',
+              fill: true,
+              tension: 0.4
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'top'
+            }
+          }
+        }
+      })
+    </script>
+
+    {% include 'components/footer/footer.html' %}
+  </body>
 </html>
