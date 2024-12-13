@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from empresa.views import EmpresaListView, EmpresaCreateView, EmpresaUpdateView, EmpresaDeleteView, EmpresaDetailView
-from categoria.views import CategoriaListView, CategoriaCreateView, CategoriaUpdateView, CategoriaDeleteView, CategoriaDetailView
+from categoria.views import CategoriaListView, CategoriaCreateView, CategoriaDeleteView
 from formato.views import FormatoListView, FormatoCreateView, FormatoUpdateView, FormatoDeleteView, FormatoDetailView
 from produto.views import ProdutoListView, ProdutoCreateView, ProdutoUpdateView, ProdutoDeleteView, EstoqueListView
 from movimentacoes.views import  MovimentacoesListView, MovimentacoesCreateView, MovimentacoesDeleteView
@@ -31,9 +31,7 @@ urlpatterns = [
     # Rotas para categoria
     path('categoria/', CategoriaListView.as_view(), name='categoria-list'),
     path('categoria/novo/', CategoriaCreateView.as_view(), name='categoria-create'),
-    path('categoria/<int:pk>/editar/', CategoriaUpdateView.as_view(), name='categoria-update'),
     path('categoria/<int:pk>/deletar/', CategoriaDeleteView.as_view(), name='categoria-delete'),
-    path('categoria/<int:pk>/', CategoriaDetailView.as_view(), name='categoria-detail'),
     
     # Rotas para o produto
     path('produto/', ProdutoListView.as_view(), name='produto-list'),

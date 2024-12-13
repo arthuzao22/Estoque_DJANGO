@@ -2,7 +2,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .models import Produto
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.db import transaction
 
 #PRODUTOS
 
@@ -18,6 +18,15 @@ class ProdutoCreateView(LoginRequiredMixin, CreateView):
     template_name = 'produto_form.html'
     fields = ['nome', 'id_categoria', 'formato', 'id_formato', 'unidades']
     success_url = reverse_lazy('produto-list')
+
+    def form_valid(self, form):
+        # Salva o produto e cria o estoque com qtde 0
+        with transaction.atomic():
+            response = super().form_valid(form)
+            # Acessando o produto recém-criado via self.object
+            # Isso já acessa a instância do produto criada
+            Estoque.objects.create(id_produto=self.object, qtde=0)  # Não precisa definir 'data_cadastro'
+        return response
 
 # Atualizar produto
 class ProdutoUpdateView(LoginRequiredMixin, UpdateView):
