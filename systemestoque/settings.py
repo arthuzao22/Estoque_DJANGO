@@ -89,8 +89,12 @@ WSGI_APPLICATION = 'systemestoque.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',  # Nome do banco de dados
+        'USER': 'postgres',  # Usuário
+        'PASSWORD': '0iCvDs3KpSqQiOLU',  # Senha
+        'HOST': 'imprudently-savvy-zander.data-1.use1.tembo.io',  # Hostname do servidor
+        'PORT': '5432',  # Porta do banco de dados
     }
 }
 
