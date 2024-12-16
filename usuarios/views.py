@@ -35,4 +35,3 @@ def register_view(request):
 
     return render(request, 'usuarios_register.html', {'form': form})
 
-

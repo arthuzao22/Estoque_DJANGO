@@ -1,10 +1,8 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lista de Formatos</title>
-  </head>
+  {% include 'components/header/header.html' %}
+
   <body>
     <h1>Lista de Formatos</h1>
     <a href="{% url 'formato-create' %}">Novo Formato</a>
@@ -18,4 +16,5 @@
       {% endfor %}
     </ul>
   </body>
+  {% include 'components/footer/footer.html' %}
 </html>

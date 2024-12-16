@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from .models import Produto
+from categoria.models import Categoria  # Importação do modelo Categoria
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
 
@@ -12,11 +13,24 @@ class ProdutoListView(LoginRequiredMixin, ListView):
     template_name = 'produto_list.html'
     context_object_name = 'produtos'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all()  # Obtém todas as categorias da base de dados
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        categorias_filter = self.request.GET.get('categorias_filter')  # Obtém o parâmetro da URL
+        if categorias_filter:
+            queryset = queryset.filter(id_categoria=categorias_filter)  # Filtra pelos produtos da categoria
+        return queryset
+
+
 # Criar produto
 class ProdutoCreateView(LoginRequiredMixin, CreateView):
     model = Produto
     template_name = 'produto_form.html'
-    fields = ['nome', 'id_categoria', 'formato', 'id_formato', 'unidades']
+    fields = ['nome', 'id_categoria', 'formato', 'id_formato', 'estoqueMin','unidades']
     success_url = reverse_lazy('produto-list')
 
     def form_valid(self, form):
@@ -25,7 +39,7 @@ class ProdutoCreateView(LoginRequiredMixin, CreateView):
             response = super().form_valid(form)
             # Acessando o produto recém-criado via self.object
             # Isso já acessa a instância do produto criada
-            Estoque.objects.create(id_produto=self.object, qtde=0)  # Não precisa definir 'data_cadastro'
+            Estoque.objects.create(id_produto=self.object, qtde=0)
         return response
 
 # Atualizar produto

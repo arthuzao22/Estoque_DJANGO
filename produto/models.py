@@ -10,6 +10,7 @@ class Produto(models.Model):
         ('660x960','660x960')        
     ]
     formato = models.CharField(max_length=255, choices=FORMATO)
+    estoqueMin = models.IntegerField();
     id_categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     id_formato = models.ForeignKey(Formato, on_delete=models.CASCADE)  # Formato está aqui
     unidades = models.IntegerField()

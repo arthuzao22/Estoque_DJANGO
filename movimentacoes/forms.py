@@ -9,8 +9,6 @@ class MovimentacoesForm(forms.ModelForm):
             'data_chegada_saida': forms.DateInput(attrs={'type': 'date'}),
         }
 
-
-
     def clean_qtde(self):
         """Validação personalizada para quantidade"""
         qtde = self.cleaned_data.get('qtde')
