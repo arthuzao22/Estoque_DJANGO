@@ -7,13 +7,22 @@
         <h1 class="d-none d-md-block text-center">Lista de Estoque</h1> <!-- Mostrado em telas médias ou maiores -->
         <h4 class="d-block d-md-none text-center">Lista de Estoque</h4> <!-- Mostrado em telas menores -->
       </div>
+      <div class="mb-3 text-center">
+        <form method="get" action="{% url 'estoque-list' %}">
+          <button class="btn btn-outline-primary mx-1">Todos</button>
+          {% for categoria in categorias %}
+            <a class="btn btn-outline-secondary mx-1" href="?categorias_filter={{ categoria.id }}">{{ categoria.categoria }}</a>
+          {% endfor %}
+        </form>
+      </div>
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">Produto</th>
-            <th scope="col">QTDE</th>
-            <th scope="col">UNI</th>
+            <th class="d-none d-md-block">Quantidade</th> <!-- Mostrado em telas médias ou maiores -->
+            <th class="d-block d-md-none">Qtde</th> <!-- Mostrado em telas menores -->            
+            <th scope="col">Uni.</th>
           </tr>
         </thead>
         <tbody>

@@ -11,6 +11,70 @@
   <link rel="stylesheet" href="{% static 'CSS/style.css' %}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+<style>
+  .spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Fundo cinza com opacidade */
+    z-index: 998; /* Atrás do spinner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spinner div {
+    background-color: #24969d;
+    width: 10px;
+    height: 100%;
+    margin: 0 3px;
+    animation: stretch 1.2s infinite ease-in-out;
+  }
+
+  .spinner .rect2 {
+    animation-delay: -1.1s;
+  }
+
+  .spinner .rect3 {
+    animation-delay: -1.0s;
+  }
+
+  .spinner .rect4 {
+    animation-delay: -0.9s;
+  }
+
+  .spinner .rect5 {
+    animation-delay: -0.8s;
+  }
+
+  @keyframes stretch {
+    0%, 40%, 100% {
+      transform: scaleY(0.4);
+    }
+    20% {
+      transform: scaleY(1.0);
+    }
+  }
+
+  .d-none {
+    display: none !important;
+  }
+</style>
 
 <body>
 
@@ -20,7 +84,7 @@
         <a href="#" class="img logo rounded-circle mb-5" style="background-image: url('{% static "images/logo.png" %}');"></a>
         <ul class="list-unstyled components mb-5">
           <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Movimentações</a>
+            <a data-no-loading href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Movimentações</a>
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <li>
                 <a href="/movimentacoes/novo/">Nova Movimentação</a>
@@ -34,7 +98,7 @@
             <a href="/estoque/">Estoque</a>
           </li>
           <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ferramentas de edição</a>
+            <a data-no-loading href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Ferramentas de edição</a>
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <li>
                 <a href="/empresa/">Empresa</a>
@@ -77,21 +141,21 @@
     <!-- Page Content  -->
     <div id="content" class="p-4 p-md-5">
 
-      <nav class="navbar navbar-expand-lg navbar-light" >
+      <nav class="navbar navbar-expand-lg navbar-light" data-no-loading>
         <div class="container-fluid">
 
-          <button type="button" id="sidebarCollapse" class="btn btn-primary">
+          <button data-no-loading  type="button" id="sidebarCollapse" class="btn btn-primary">
             <i class="fa fa-bars"></i>
             <span class="sr-only">Toggle Menu</span>
           </button>
-          <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
+          <button data-no-loading class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
             aria-label="Toggle navigation">
             <i class="fa fa-bars"></i>
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav navbar-nav ml-auto">
+          <div data-no-loading class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul data-no-loading class="nav navbar-nav ml-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="#">Home</a>
               </li>
