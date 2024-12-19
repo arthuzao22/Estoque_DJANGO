@@ -1,5 +1,5 @@
 # Usar a imagem oficial do Python do Docker Hub
-FROM python:3.11-slim
+FROM python:3.12.6-slim
 
 # Definir variável de ambiente para evitar o buffer de logs do Python
 ENV PYTHONUNBUFFERED 1
