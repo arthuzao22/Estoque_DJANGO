@@ -4,11 +4,9 @@ FROM python:3.12.6-slim
 # Definir variável de ambiente para evitar o buffer de logs do Python
 ENV PYTHONUNBUFFERED 1
 
-# Instalar dependências do sistema necessárias (incluindo tkinter)
+# Atualizar o apt e instalar dependências para o psycopg2 e o Tk
 RUN apt-get update && apt-get install -y \
-    tk-dev libtk8.6 libx11-6 libxft2 libfreetype6 libfontconfig1 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    libpq-dev gcc tk-dev libtk8.6
 
 # Definir o diretório de trabalho dentro do contêiner
 WORKDIR /app
@@ -16,7 +14,7 @@ WORKDIR /app
 # Copiar o arquivo de dependências para dentro do contêiner
 COPY requirements.txt /app/
 
-# Instalar as dependências do Python
+# Instalar as dependências
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copiar todo o projeto para dentro do contêiner
