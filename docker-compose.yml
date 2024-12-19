@@ -2,9 +2,13 @@ version: '3.9'
 
 services:
   db:
-    image: sqlite3
+    image: postgres:13  # Usando PostgreSQL
     volumes:
-      - ./db.sqlite3:/app/db.sqlite3
+      - ./db_data:/var/lib/postgresql/data  # Persistência de dados
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0iCvDs3KpSqQiOLU
+      POSTGRES_DB: postgres
     networks:
       - app-network
 
